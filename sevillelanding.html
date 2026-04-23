@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seville Consultancy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --berry:#B85C6E;
+  --violet:#6B4FA0;
+  --plum:#3B2A6E;
+  --white:#ffffff;
+  --off-white:#f0eef8;
+  --muted:rgba(255,255,255,0.45);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;
+  background:#0a0810;
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.8rem 5rem;
+  background:linear-gradient(to bottom,rgba(10,8,16,0.9) 0%,transparent 100%);
+}
+.logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;position:relative}
+.logo-bars{display:flex;align-items:flex-end;gap:3px;height:20px}
+.logo-bar{width:4px;border-radius:2px;transition:height 0.35s ease,background 0.35s ease}
+.logo-bar:nth-child(1){height:8px;background:var(--berry)}
+.logo-bar:nth-child(2){height:14px;background:var(--violet)}
+.logo-bar:nth-child(3){height:20px;background:rgba(255,255,255,0.9)}
+.logo:hover .logo-bar:nth-child(1){height:20px;background:var(--violet)}
+.logo:hover .logo-bar:nth-child(2){height:14px;background:var(--berry)}
+.logo:hover .logo-bar:nth-child(3){height:8px;background:rgba(255,255,255,0.6)}
+.logo-text{display:flex;flex-direction:column;overflow:hidden}
+.logo-name{
+  font-family:'Outfit',sans-serif;font-weight:300;font-size:1.1rem;
+  letter-spacing:0.25em;text-transform:uppercase;color:var(--white);line-height:1;
+  transition:letter-spacing 0.4s ease,color 0.3s ease;
+}
+.logo:hover .logo-name{letter-spacing:0.35em;color:rgba(255,255,255,0.85)}
+.logo-sub{
+  font-family:'Outfit',sans-serif;font-weight:200;font-size:0.55rem;
+  letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-top:3px;
+  transition:letter-spacing 0.4s ease,color 0.3s ease;
+}
+.logo:hover .logo-sub{letter-spacing:0.4em;color:var(--berry)}
+.nav-contact{
+  font-family:'Outfit',sans-serif;font-weight:300;font-size:0.8rem;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;border-bottom:1px solid transparent;
+  transition:color 0.3s,border-color 0.3s;padding-bottom:2px;
+}
+.nav-contact:hover{color:var(--white);border-color:var(--berry)}
+
+/* HERO */
+.hero{
+  position:relative;height:100vh;min-height:700px;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1800&q=80');
+  background-size:cover;background-position:center;
+  filter:brightness(0.45);
+  transform:scale(1.05);
+  transition:transform 8s ease;
+}
+.hero-bg.loaded{transform:scale(1)}
+.hero-vignette{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(10,8,16,0.3) 0%,
+    transparent 30%,
+    transparent 50%,
+    rgba(10,8,16,0.8) 80%,
+    rgba(10,8,16,1) 100%
+  );
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 5rem 7rem;
+  max-width:900px;
+}
+.hero-eyebrow{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--berry);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-eyebrow::before{
+  content:'';display:block;width:32px;height:1px;background:var(--berry);
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  font-weight:300;line-height:1.1;
+  color:var(--white);margin-bottom:1.2rem;
+}
+.hero-title em{
+  font-style:italic;color:rgba(184,92,110,0.85);
+}
+.hero-tagline{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:1rem;letter-spacing:0.05em;
+  color:rgba(255,255,255,0.6);
+  line-height:1.8;margin-bottom:2.5rem;
+  max-width:520px;
+}
+.hero-cta{
+  display:inline-block;
+  padding:0.9rem 2.4rem;
+  border:1px solid rgba(255,255,255,0.25);
+  color:var(--white);
+  font-family:'Outfit',sans-serif;font-weight:300;
+  font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.hero-cta::before{
+  content:'';position:absolute;inset:0;
+  background:var(--berry);
+  transform:translateX(-100%);
+  transition:transform 0.3s ease;
+  z-index:-1;
+}
+.hero-cta:hover{border-color:var(--berry);color:var(--white)}
+.hero-cta:hover::before{transform:translateX(0)}
+
+/* SERVICES */
+.services{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  min-height:90vh;
+}
+.service-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  border-right:1px solid rgba(255,255,255,0.06);
+}
+.service-card:last-child{border-right:none}
+.service-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  filter:brightness(0.25);
+  transition:filter 0.6s ease,transform 0.8s ease;
+  transform:scale(1.05);
+}
+.service-card:hover .service-bg{
+  filter:brightness(0.15);
+  transform:scale(1.1);
+}
+.service-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(10,8,16,0.5) 60%,
+    rgba(10,8,16,0.9) 100%
+  );
+}
+.service-number{
+  position:absolute;top:2.5rem;left:2.5rem;
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:0.9rem;color:var(--berry);letter-spacing:0.1em;
+  opacity:1;transition:opacity 0.4s;
+}
+.service-content{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:2.5rem;
+  transform:translateY(0);
+  transition:transform 0.5s ease;
+}
+.service-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.9rem;font-weight:300;
+  color:var(--white);line-height:1.2;
+  margin-bottom:1rem;
+}
+.service-name em{font-style:italic;color:rgba(184,92,110,0.9)}
+.service-divider{
+  width:32px;height:1px;background:var(--berry);
+  margin-bottom:1rem;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s ease 0.1s;
+}
+.service-desc{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.85rem;line-height:1.8;
+  color:rgba(255,255,255,0.7);
+  max-height:0;overflow:hidden;
+  transition:max-height 0.5s ease 0.1s,opacity 0.4s ease;
+  opacity:0;margin-bottom:0;
+}
+.service-link{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  margin-top:1.5rem;
+  font-family:'Outfit',sans-serif;font-weight:300;
+  font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--berry);text-decoration:none;
+  opacity:0;transform:translateY(8px);
+  transition:opacity 0.3s ease 0.3s,transform 0.3s ease 0.3s;
+}
+.service-link::after{content:'→';font-size:0.9rem}
+
+.service-card:hover .service-divider{transform:scaleX(1)}
+.service-card:hover .service-desc{max-height:200px;opacity:1}
+.service-card:hover .service-link{opacity:1;transform:translateY(0)}
+
+/* CONTACT */
+.contact-section{
+  padding:8rem 5rem;
+  background:#0a0810;
+  position:relative;
+}
+.contact-section::before{
+  content:'';position:absolute;top:0;left:5rem;right:5rem;
+  height:1px;background:linear-gradient(to right,transparent,rgba(107,79,160,0.4),transparent);
+}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1.6fr;
+  gap:6rem;max-width:1200px;margin:0 auto;
+}
+.contact-left{}
+.contact-label{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--berry);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.contact-label::before{content:'';display:block;width:24px;height:1px;background:var(--berry)}
+.contact-heading{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,4vw,3.5rem);font-weight:300;
+  line-height:1.2;color:var(--white);margin-bottom:2rem;
+}
+.contact-heading em{font-style:italic;color:rgba(184,92,110,0.85)}
+.contact-body{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.9rem;line-height:1.9;
+  color:rgba(255,255,255,0.5);
+}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:0.5rem}
+.form-label{
+  font-family:'Outfit',sans-serif;font-weight:300;
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);
+}
+.form-control{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--white);
+  padding:0.85rem 1rem;
+  font-family:'Outfit',sans-serif;font-weight:300;font-size:0.9rem;
+  transition:border-color 0.3s,background 0.3s;
+  outline:none;
+  appearance:none;-webkit-appearance:none;
+}
+.form-control:focus{
+  border-color:rgba(107,79,160,0.6);
+  background:rgba(107,79,160,0.06);
+}
+.form-control::placeholder{color:rgba(255,255,255,0.2);font-weight:200}
+select.form-control option{background:#1a1425;color:var(--white)}
+textarea.form-control{resize:vertical;min-height:120px}
+.form-submit{
+  margin-top:0.5rem;
+  padding:1rem 2.5rem;
+  background:transparent;
+  border:1px solid var(--berry);
+  color:var(--white);
+  font-family:'Outfit',sans-serif;font-weight:300;
+  font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.form-submit::before{
+  content:'';position:absolute;inset:0;
+  background:var(--berry);
+  transform:translateX(-100%);
+  transition:transform 0.3s ease;
+  z-index:0;
+}
+.form-submit span{position:relative;z-index:1}
+.form-submit:hover::before{transform:translateX(0)}
+.success-msg{
+  display:none;
+  padding:1rem 1.5rem;
+  border:1px solid rgba(107,79,160,0.4);
+  background:rgba(107,79,160,0.08);
+  color:rgba(255,255,255,0.7);
+  font-family:'Outfit',sans-serif;font-weight:200;font-size:0.85rem;
+  line-height:1.7;margin-top:1rem;
+}
+
+.contact-email-alt{
+  margin-top:2.5rem;
+  padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.07);
+}
+.contact-email-label{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:0.6rem;
+}
+.contact-email-link{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.15rem;font-weight:300;
+  color:rgba(255,255,255,0.6);
+  text-decoration:none;
+  border-bottom:1px solid rgba(184,92,110,0.3);
+  padding-bottom:2px;
+  transition:color 0.3s,border-color 0.3s;
+  word-break:break-all;
+}
+.contact-email-link:hover{color:var(--berry);border-color:var(--berry)}
+
+/* FOOTER */
+footer{
+  padding:2.5rem 5rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-copy{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.75rem;letter-spacing:0.1em;
+  color:rgba(255,255,255,0.25);
+}
+.footer-domain{
+  font-family:'Outfit',sans-serif;font-weight:200;
+  font-size:0.75rem;letter-spacing:0.15em;
+  color:rgba(255,255,255,0.25);
+}
+
+@media(max-width:900px){
+  nav{padding:1.5rem 2rem}
+  .hero-content{padding:0 2rem 5rem}
+  .services{grid-template-columns:1fr}
+  .service-card{min-height:60vh;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .service-desc{max-height:200px;opacity:1}
+  .service-divider{transform:scaleX(1)}
+  .service-link{opacity:1;transform:translateY(0)}
+  .contact-section{padding:5rem 2rem}
+  .contact-grid{grid-template-columns:1fr;gap:3rem}
+  .form-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:0.5rem;padding:2rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-bars">
+      <div class="logo-bar"></div>
+      <div class="logo-bar"></div>
+      <div class="logo-bar"></div>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">Seville</span>
+      <span class="logo-sub">Consultancy</span>
+    </div>
+  </a>
+  <a class="nav-contact" href="#contact">Tell us about your challenge</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Data &amp; Business Intelligence</div>
+    <h1 class="hero-title">
+      Your data is already<br>
+      telling you <em>something.</em><br>
+      We help you act on it.
+    </h1>
+    <p class="hero-tagline">
+      ERP, analytics, and data intelligence — for businesses built to scale.
+    </p>
+    <a class="hero-cta" href="#contact">Tell us about your data challenge</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+
+  <!-- Card 1: BI & Reporting -->
+  <div class="service-card" onclick="selectService('Business Intelligence & Reporting')">
+    <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80')"></div>
+    <div class="service-overlay"></div>
+    <div class="service-number">01</div>
+    <div class="service-content">
+      <h2 class="service-name">Business<br><em>Intelligence</em><br>&amp; Reporting</h2>
+      <div class="service-divider"></div>
+      <p class="service-desc">
+        Transform scattered data into executive-ready dashboards and reports. We design BI solutions that give decision-makers the clarity they need — when they need it.
+      </p>
+      <a class="service-link" href="#contact">Start this project</a>
+    </div>
+  </div>
+
+  <!-- Card 2: Data & Analytics -->
+  <div class="service-card" onclick="selectService('Data & Analytics Consulting')">
+    <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=900&q=80')"></div>
+    <div class="service-overlay"></div>
+    <div class="service-number">02</div>
+    <div class="service-content">
+      <h2 class="service-name">Data &amp;<br><em>Analytics</em><br>Consulting</h2>
+      <div class="service-divider"></div>
+      <p class="service-desc">
+        We learn your business and build your entire data foundation — warehouses, pipelines, and analytics — so your team runs on insight, not instinct.
+      </p>
+      <a class="service-link" href="#contact">Start this project</a>
+    </div>
+  </div>
+
+  <!-- Card 3: Odoo -->
+  <div class="service-card" onclick="selectService('Odoo Implementation')">
+    <div class="service-bg" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80')"></div>
+    <div class="service-overlay"></div>
+    <div class="service-number">03</div>
+    <div class="service-content">
+      <h2 class="service-name">Odoo<br><em>Implementation</em><br>for SMEs</h2>
+      <div class="service-divider"></div>
+      <p class="service-desc">
+        Replace your spreadsheets with a clean, integrated ERP. We implement Odoo Community and Enterprise for growing businesses ready to run their operations on real data.
+      </p>
+      <a class="service-link" href="#contact">Start this project</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div class="contact-left">
+      <div class="contact-label">Get in touch</div>
+      <h2 class="contact-heading">
+        Let's talk about<br>your <em>data challenge</em>
+      </h2>
+      <p class="contact-body">
+        Whether you're starting from scratch or scaling what you have — we'd love to understand your business and explore how data can move it forward.
+      </p>
+      <div class="contact-email-alt">
+        <div class="contact-email-label">Prefer email?</div>
+        <a class="contact-email-link" href="mailto:connect@sevilleconsultancy.com">
+          connect@sevilleconsultancy.com
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input class="form-control" type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input class="form-control" type="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company *</label>
+            <input class="form-control" type="text" placeholder="Your company" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone *</label>
+            <input class="form-control" type="tel" placeholder="+63 9XX XXX XXXX" required>
+          </div>
+          <div class="form-group form-full">
+            <label class="form-label">I'm interested in *</label>
+            <select class="form-control" id="serviceSelect" required>
+              <option value="">Select a service</option>
+              <option value="Business Intelligence & Reporting">Business Intelligence &amp; Reporting</option>
+              <option value="Data & Analytics Consulting">Data &amp; Analytics Consulting</option>
+              <option value="Odoo Implementation">Odoo Implementation</option>
+              <option value="Not sure yet">Not sure yet — let's talk</option>
+            </select>
+          </div>
+          <div class="form-group form-full">
+            <label class="form-label">Budget Range *</label>
+            <select class="form-control" required>
+              <option value="">Select a range</option>
+              <option>Under ₱50,000</option>
+              <option>₱50,000 – ₱150,000</option>
+              <option>₱150,000 – ₱500,000</option>
+              <option>₱500,000 – ₱1,000,000</option>
+              <option>Above ₱1,000,000</option>
+              <option>Let's discuss</option>
+            </select>
+          </div>
+          <div class="form-group form-full">
+            <label class="form-label">Tell us about your challenge <span style="opacity:0.4;font-size:0.65rem">(optional)</span></label>
+            <textarea class="form-control" placeholder="What's the data problem you're trying to solve?"></textarea>
+          </div>
+          <div class="form-full">
+            <button class="form-submit" type="submit"><span>Send message →</span></button>
+            <div class="success-msg" id="successMsg">
+              Thank you — we'll be in touch within one business day.
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Seville Business Consultancy Services. All rights reserved.</span>
+  <span class="footer-domain">sevilleconsultancy.com</span>
+</footer>
+
+<script>
+document.getElementById('heroBg').classList.add('loaded');
+
+function selectService(name){
+  const sel = document.getElementById('serviceSelect');
+  for(let i=0;i<sel.options.length;i++){
+    if(sel.options[i].value===name){sel.selectedIndex=i;break}
+  }
+  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+}
+
+function handleSubmit(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.style.opacity='0.5';btn.style.pointerEvents='none';
+  setTimeout(()=>{
+    document.getElementById('successMsg').style.display='block';
+    btn.style.opacity='1';btn.style.pointerEvents='auto';
+    e.target.reset();
+  },800);
+}
+</script>
+</body>
+</html>
